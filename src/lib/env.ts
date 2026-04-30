@@ -1,0 +1,2 @@
+export const COOKIE_SECRET = Bun.env.COOKIE_SECRET;
+export const ADMIN_PASSWORD_HASH = Bun.env.ADMIN_PASSWORD;

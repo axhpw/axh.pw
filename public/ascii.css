@@ -1,0 +1,243 @@
+:root {
+  --bg: #050505;
+  --panel: #111111;
+  --panel-2: #0c0c0c;
+  --text: #d7ffd7;
+  --muted: #8fbc8f;
+  --accent: #7fff7f;
+  --border: #3f5f3f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #050505 0px,
+      #050505 2px,
+      #070707 2px,
+      #070707 4px
+    );
+  color: var(--text);
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  justify-content: center;
+  padding: 48px 20px 72px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(127, 255, 127, 0.03), rgba(127, 255, 127, 0.01)),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(127, 255, 127, 0.025) 3px,
+      transparent 4px
+    );
+  mix-blend-mode: screen;
+}
+
+.page-stack {
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.card,
+.project-card {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 0 0 1px #1a1a1a,
+    0 0 18px rgba(127, 255, 127, 0.08);
+  position: relative;
+}
+
+.card::before,
+.project-card::before {
+  content: "+--------------------------------------------------+";
+  display: block;
+  color: var(--border);
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 8px 12px 0;
+}
+
+.card::after,
+.project-card::after {
+  content: "+--------------------------------------------------+";
+  display: block;
+  color: var(--border);
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0 12px 8px;
+}
+
+.card {
+  max-width: 460px;
+  text-align: center;
+  padding: 18px 24px 20px;
+}
+
+.avatar {
+  width: 132px;
+  height: 132px;
+  object-fit: cover;
+  display: block;
+  margin: 8px auto 18px;
+  border-radius: 0;
+  border: 1px solid var(--border);
+  filter: grayscale(1) contrast(1.15) brightness(0.9);
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 4px #0a0a0a;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 6px rgba(127, 255, 127, 0.12);
+}
+
+.bio {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.links a {
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  padding: 8px 14px;
+  min-width: 110px;
+  text-align: center;
+  transition: 0.15s ease;
+}
+
+.links a::before {
+  content: "[ ";
+}
+
+.links a::after {
+  content: " ]";
+}
+
+.links a:hover {
+  background: #151515;
+  color: #caffca;
+  box-shadow: 0 0 10px rgba(127, 255, 127, 0.12);
+  transform: translateY(-1px);
+}
+
+.projects-section {
+  width: 100%;
+}
+
+.projects-section h2 {
+  margin: 0 0 16px;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+.projects-section h2::before {
+  content: "> ";
+  color: var(--accent);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.project-card {
+  padding: 14px 18px 16px;
+}
+
+.project-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.project-card h3::before {
+  content: "| ";
+  color: var(--accent);
+}
+
+.project-subtitle {
+  margin: 0 0 10px;
+  color: var(--accent);
+}
+
+.project-description {
+  margin: 0;
+  color: var(--muted);
+}
+
+.project-card:hover {
+  border-color: #6f9f6f;
+  box-shadow:
+    0 0 0 1px #1a1a1a,
+    0 0 22px rgba(127, 255, 127, 0.12);
+}
+
+a:focus-visible {
+  outline: 1px dashed var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 28px 14px 40px;
+  }
+
+  .card {
+    padding: 16px 16px 18px;
+  }
+
+  .avatar {
+    width: 108px;
+    height: 108px;
+  }
+
+  .links a {
+    width: 100%;
+  }
+}
