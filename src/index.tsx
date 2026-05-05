@@ -1,13 +1,18 @@
 /** @jsxImportSource hono/jsx */
 
-import { Hono } from 'hono'
-import { serveStatic } from 'hono/bun'
-import { Layout } from './components/Layout'
-import { ProfileCard } from './components/ProfileCard'
-import { Projects } from './components/Projects'
-import { verifyPassword, createSession, clearSession, requireAuth } from './lib/auth'
+import { Hono } from "hono";
+import { serveStatic } from "hono/bun";
+import { Layout } from "./components/Layout";
+import { ProfileCard } from "./components/ProfileCard";
+import { Projects } from "./components/Projects";
+import {
+  verifyPassword,
+  createSession,
+  clearSession,
+  requireAuth,
+} from "./lib/auth";
 
-const app = new Hono()
+const app = new Hono();
 
 const file = Bun.file("storage/cards.json");
 
@@ -18,27 +23,24 @@ declare module "bun" {
   }
 }
 
-app.use('/public/*', serveStatic({ root: './' }))
+app.use("/public/*", serveStatic({ root: "./" }));
 
-app.get('/', async (c) => {
-
-  const name = 'Alex'
+app.get("/", async (c) => {
+  const name = "Alex";
 
   const data = await file.json();
-
-  console.log(data)
 
   return c.html(
     <Layout>
       <div class="page-stack">
-        <ProfileCard/>
+        <ProfileCard />
         <Projects projects={data.cards} />
       </div>
-    </Layout>
-  )
-})
+    </Layout>,
+  );
+});
 
-app.get('/login', (c) => {
+app.get("/login", (c) => {
   return c.html(
     <Layout>
       <section class="card">
@@ -57,20 +59,19 @@ app.get('/login', (c) => {
           <button type="submit">Log in</button>
         </form>
       </section>
-    </Layout>
-  )
-})
+    </Layout>,
+  );
+});
 
+app.post("/login", async (c) => {
+  const body = await c.req.parseBody();
+  const password = body.password;
 
-app.post('/login', async (c) => {
-  const body = await c.req.parseBody()
-  const password = body.password
-
-  if (typeof password !== 'string') {
-    return c.text('Invalid request', 400)
+  if (typeof password !== "string") {
+    return c.text("Invalid request", 400);
   }
 
-  const ok = await verifyPassword(password)
+  const ok = await verifyPassword(password);
 
   if (!ok) {
     return c.html(
@@ -92,15 +93,15 @@ app.post('/login', async (c) => {
           </form>
         </section>
       </Layout>,
-      401
-    )
+      401,
+    );
   }
 
-  await createSession(c)
-  return c.redirect('/admin')
-})
+  await createSession(c);
+  return c.redirect("/admin");
+});
 
-app.get('/admin', requireAuth, (c) => {
+app.get("/admin", requireAuth, (c) => {
   return c.html(
     <Layout>
       <section class="card">
@@ -111,13 +112,13 @@ app.get('/admin', requireAuth, (c) => {
           <button type="submit">Log out</button>
         </form>
       </section>
-    </Layout>
-  )
-})
+    </Layout>,
+  );
+});
 
-app.post('/logout', requireAuth, (c) => {
-  clearSession(c)
-  return c.redirect('/')
-})
+app.post("/logout", requireAuth, (c) => {
+  clearSession(c);
+  return c.redirect("/");
+});
 
-export default app
+export default app;
