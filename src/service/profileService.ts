@@ -10,4 +10,8 @@ export type Profile = {
   }[];
 };
 
-const PROFILE_PATH = "../../storage/profile.json";
+const PROFILE_PATH = "./storage/profile.json";
+
+export async function getProfile(): Promise<Profile> {
+  return readJSON(PROFILE_PATH);
+}

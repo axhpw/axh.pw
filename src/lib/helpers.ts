@@ -1,4 +1,5 @@
 import { readFile, writeFile } from "fs/promises";
+import { getProfile } from "../service/profileService";
 
 export async function readJSON<T>(path: string) {
   try {
