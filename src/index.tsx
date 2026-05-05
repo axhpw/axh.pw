@@ -9,6 +9,8 @@ import { verifyPassword, createSession, clearSession, requireAuth } from './lib/
 
 const app = new Hono()
 
+const file = Bun.file("storage/cards.json");
+
 declare module "bun" {
   interface Env {
     ADMIN_PASSWORD: string;
@@ -18,15 +20,19 @@ declare module "bun" {
 
 app.use('/public/*', serveStatic({ root: './' }))
 
-app.get('/', (c) => {
+app.get('/', async (c) => {
 
   const name = 'Alex'
+
+  const data = await file.json();
+
+  console.log(data)
 
   return c.html(
     <Layout>
       <div class="page-stack">
         <ProfileCard/>
-        <Projects/>
+        <Projects projects={data.cards} />
       </div>
     </Layout>
   )
