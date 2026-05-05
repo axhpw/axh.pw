@@ -1,2 +1,9 @@
 # deps
 node_modules/
+
+# Me-specific content
+storage/
+public/
+
+# Sensitive Files
+.env
