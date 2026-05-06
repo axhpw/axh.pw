@@ -3,11 +3,6 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 
-// COMPONENT IMPORTS
-import { Layout } from "./components/Layout";
-import { ProfileCard } from "./components/ProfileCard";
-import { Projects } from "./components/Projects";
-
 // LIBRARY IMPORTS
 import {
   verifyPassword,
