@@ -10,11 +10,12 @@ import {
   clearSession,
   requireAuth,
 } from "./lib/auth";
+
+// SERVICE IMPORTS
 import { getProfile } from "./service/profileService";
+import { getProjects } from "./service/projectService";
 
 const app = new Hono();
-
-const file = Bun.file("storage/cards.json");
 
 declare module "bun" {
   interface Env {
@@ -28,6 +29,11 @@ app.use("/*", serveStatic({ root: "./public" }));
 app.get("/api/profile", async (c) => {
   const profile = await getProfile();
   return c.json(profile);
+});
+
+app.get("/api/projects", async (c) => {
+  const projects = await getProjects();
+  return c.json(projects);
 });
 
 export default app;
